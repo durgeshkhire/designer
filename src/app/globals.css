@@ -1,26 +1,223 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --font-hand: 'Caveat', cursive;
+  --font-handalt: 'Patrick Hand', cursive;
+  --font-sans: 'Inter', sans-serif;
+
+  --color-pastel-yellow: #FFF9C4;
+  --color-pastel-yellow-dark: #FFF176;
+  --color-pastel-blue: #BBDEFB;
+  --color-pastel-blue-dark: #90CAF9;
+  --color-pastel-pink: #F8BBD0;
+  --color-pastel-pink-dark: #F48FB1;
+  --color-pastel-purple: #E1BEE7;
+  --color-pastel-purple-dark: #CE93D8;
+  --color-pastel-green: #C8E6C9;
+  --color-pastel-orange: #FFE0B2;
+  --color-marker-pink: #FF6B9D;
+  --color-marker-yellow: #FFE066;
+  --color-marker-green: #7DD3A0;
+  --color-ink: #1a1a1a;
+  --color-ink-light: #555555;
+  --color-grid-dot: #d4d4d4;
+  --color-bg: #FAFAFA;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* Dotted grid background */
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-bg);
+  background-image: radial-gradient(circle, var(--color-grid-dot) 1px, transparent 1px);
+  background-size: 24px 24px;
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+}
+
+/* Marker highlight effect */
+.marker-highlight {
+  background: linear-gradient(
+    104deg,
+    rgba(255, 107, 157, 0) 0.9%,
+    rgba(255, 107, 157, 0.35) 2.4%,
+    rgba(255, 107, 157, 0.45) 5.8%,
+    rgba(255, 107, 157, 0.45) 93%,
+    rgba(255, 107, 157, 0.35) 96%,
+    rgba(255, 107, 157, 0) 98%
+  );
+  padding: 0.1em 0.3em;
+  border-radius: 0.3em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.marker-highlight-yellow {
+  background: linear-gradient(
+    104deg,
+    rgba(255, 224, 102, 0) 0.9%,
+    rgba(255, 224, 102, 0.45) 2.4%,
+    rgba(255, 224, 102, 0.55) 5.8%,
+    rgba(255, 224, 102, 0.55) 93%,
+    rgba(255, 224, 102, 0.45) 96%,
+    rgba(255, 224, 102, 0) 98%
+  );
+  padding: 0.1em 0.3em;
+  border-radius: 0.3em;
+}
+
+.marker-highlight-green {
+  background: linear-gradient(
+    104deg,
+    rgba(125, 211, 160, 0) 0.9%,
+    rgba(125, 211, 160, 0.45) 2.4%,
+    rgba(125, 211, 160, 0.55) 5.8%,
+    rgba(125, 211, 160, 0.55) 93%,
+    rgba(125, 211, 160, 0.45) 96%,
+    rgba(125, 211, 160, 0) 98%
+  );
+  padding: 0.1em 0.3em;
+  border-radius: 0.3em;
+}
+
+/* Sticky note base style */
+.sticky-note {
+  border: 2px solid var(--color-ink);
+  border-radius: 4px;
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sticky-note:hover {
+  box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.2);
+}
+
+/* Hand-drawn border effect */
+.hand-border {
+  border: 2px solid var(--color-ink);
+  border-radius: 2px 8px 2px 8px;
+}
+
+/* Sketch button style */
+.sketch-btn {
+  border: 2.5px solid var(--color-ink);
+  border-radius: 8px 4px 8px 4px;
+  box-shadow: 3px 3px 0px var(--color-ink);
+  transition: all 0.2s ease;
+}
+
+.sketch-btn:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px var(--color-ink);
+}
+
+.sketch-btn:active {
+  transform: translate(3px, 3px);
+  box-shadow: 0px 0px 0px var(--color-ink);
+}
+
+/* Section label strip */
+.section-label {
+  display: inline-block;
+  padding: 4px 16px;
+  border: 2px solid var(--color-ink);
+  border-radius: 2px;
+  font-family: var(--font-hand);
+  font-size: 1.75rem;
+  font-weight: 700;
+  position: relative;
+}
+
+/* Floating tag */
+.floating-tag {
+  font-family: var(--font-hand);
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 2px 12px;
+  border: 1.5px solid var(--color-ink);
+  border-radius: 2px 6px 2px 6px;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #aaa;
+}
+
+/* Pill tag */
+.pill-tag {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+/* Timeline dot */
+.timeline-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid var(--color-ink);
+  background: white;
+}
+
+/* Input sketch style */
+.sketch-input {
+  border: none;
+  border-bottom: 2px dashed var(--color-ink);
+  background: transparent;
+  font-family: var(--font-handalt);
+  font-size: 1rem;
+  padding: 8px 4px;
+  outline: none;
+  width: 100%;
+  transition: border-color 0.2s;
+}
+
+.sketch-input:focus {
+  border-bottom-style: solid;
+  border-color: var(--color-marker-pink);
+}
+
+.sketch-input::placeholder {
+  color: #aaa;
+  font-family: var(--font-handalt);
+}
+
+/* Doodle arrow animation */
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+
+.wiggle-animation {
+  animation: wiggle 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.float-animation {
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes draw-in {
+  from { stroke-dashoffset: 100; }
+  to { stroke-dashoffset: 0; }
 }
